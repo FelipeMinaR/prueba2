@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego 4 - Aprende Jugando</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #1a9dd4;
+            --secondary-color: #4CAF50;
+            --accent-color: #FFD54F;
+            --danger-color: #ff5a5f;
+            --text-color: #333333;
+            --light-bg: #f9f9f9;
+            --header-font: 'Nunito', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', Arial, sans-serif;
+            text-align: center;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            padding: 30px 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 70%;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 30px 0 20px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .button-back {
+            display: inline-flex;
+            align-items: center;
+            margin: 20px;
+            padding: 12px 24px;
+            background-color: var(--danger-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .button-back:hover {
+            background-color: #e7484d;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-back:active {
+            transform: translateY(0);
+        }
+
+        .video-container {
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+            padding: 12px;
+        }
+
+        .video-container iframe {
+            border-radius: 8px;
+            width: 100%;
+            height: 450px;
+        }
+
+        .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Aumentado de 250px a 350px */
+    gap: 30px; /* Aumentado de 25px a 30px para mejor espaciado */
+    margin: 40px auto;
+    padding: 0 20px;
+    max-width: 1200px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    aspect-ratio: 4/3; /* Modificado de 3/2 para dar más altura */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    
+    transition: transform 0.5s ease;
+}
+
+/* Ajustes responsive para pantallas medianas */
+@media (max-width: 768px) {
+    .image-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Aumentado de 200px a 300px */
+    }
+}
+
+/* Ajustes responsive para pantallas pequeñas */
+@media (max-width: 480px) {
+    .image-gallery {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .gallery-item {
+        aspect-ratio: 16/9; /* Cambiado para mejor visualización en móviles */
+    }
+}
+
+        .instruction-banner {
+            background: linear-gradient(to right, #FFD54F, #FFC107);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .instruction-banner h3 {
+            color: #333;
+            font-size: 1.6rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .instruction-emoji {
+            font-size: 1.8rem;
+        }
+
+        .scratch-container {
+            margin: 40px auto;
+            max-width: 600px;
+        }
+
+        .play-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 36px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 22px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .play-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .play-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .play-button:hover::before {
+            left: 100%;
+        }
+
+        .play-button h1 {
+            margin: 0;
+            font-size: 28px;
+            color: white;
+        }
+
+        .play-button h1::after {
+            display: none;
+        }
+
+        .quiz-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px auto;
+            max-width: 800px;
+        }
+
+        .quiz-form {
+            max-width: 100%;
+            text-align: left;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .question p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .options label {
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .options label:hover {
+            background-color: #f0f0f0;
+            border-color: #ccc;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .verify-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+            font-weight: 600;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .verify-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .verify-button:active {
+            transform: translateY(0);
+        }
+
+        #resultado {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 30px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .video-container iframe {
+                height: 350px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-container iframe {
+                height: 240px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .button-back, .play-button {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+            
+            .play-button h1 {
+                font-size: 20px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .instruction-banner h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+    <a href="index.html" class="button-back">⮐ Regresar al Menú</a>
+
+    <header>
+    <h1>Juego 4: ¡LOS ESTADOS DE LA MATERIA!</h1>
+    </header>
+    
+    <div class="video-container">
+        <!-- Video de YouTube relacionado -->
+        <iframe width="640" height="360"
+        src="https://www.youtube.com/embed/YNGI9w7VNYE?si=UGljXrRxGv_KDyGy"
+        frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+    <div class="image-gallery">
+        <div class="gallery-item">
+            <img src="https://cdn0.unprofesor.com/es/posts/1/7/1/los_estados_de_la_materia_y_sus_cambios_5171_600.jpg" alt="Descripción 1">
+        </div>
+        <div class="gallery-item">
+            <img src="https://aprendihoy.com/wp-content/uploads/2021/08/estados-de-la-materia-imagen-destacada.png" alt="Descripción 2">
+        </div>
+        <div class="gallery-item">
+            <img src="https://revistanuve.com/wp-content/uploads/2021/11/revistanuve-los-diferentes-estados-de-la-materia-en-nuestro-universo-5.jpg" alt="Descripción 3">
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.istockphoto.com/id/840513670/es/vector/estados-de-la-materia-fase-o-estado-de-la-materia-y-la-fase-de-transici%C3%B3n.jpg?s=612x612&w=0&k=20&c=Y5D7DfbBNfLhJUoHhq-DOmAXkLqcQA_Fscftfw_N7pI=" alt="Descripción 2">
+        </div>
+        <div class="gallery-item">
+            <img src="https://tomi-digital-resources.storage.googleapis.com/images/897246/7211ea3f-cea0-4cf8-b82a-c91962521783.jpg" alt="Descripción 2">
+        </div>
+    </div>
+
+    <div class="scratch-container">
+        <a href="https://scratch.mit.edu/projects/1168159802/" target="_blank" class="button-back">
+            <h1 style="color: rgb(255, 255, 255);">▶️ Jugar con cámara en Scratch</h1>
+        </a>
+    </div>
+
+    <div class="quiz-container">
+        <!-- QUIZ SOBRE ESTADOS DE LA MATERIA -->
+        <h2>🧪 Quiz: ¿Sabes reconocer los estados de la materia?</h2>
+        
+        <form id="quizForm4" class="quiz-form">
+            <div class="question">
+                <p>1. ¿Cuál es un ejemplo de materia en estado sólido?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> El aire</label>
+                    <label><input type="radio" name="q1" value="b"> El hielo</label>
+                    <label><input type="radio" name="q1" value="c"> El agua</label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>2. ¿Qué estado de la materia toma la forma del recipiente que lo contiene?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> Sólido</label>
+                    <label><input type="radio" name="q2" value="b"> Líquido</label>
+                    <label><input type="radio" name="q2" value="c"> Ninguno</label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>3. ¿En qué estado está el vapor de agua?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> Líquido</label>
+                    <label><input type="radio" name="q3" value="b"> Gaseoso</label>
+                    <label><input type="radio" name="q3" value="c"> Sólido</label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>4. ¿Qué pasa con un hielo cuando se calienta?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> Se convierte en vapor</label>
+                    <label><input type="radio" name="q4" value="b"> Se derrite en agua</label>
+                    <label><input type="radio" name="q4" value="c"> Se vuelve más duro</label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>5. ¿Cuál de estos es un gas?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> El aceite</label>
+                    <label><input type="radio" name="q5" value="b"> El oxígeno</label>
+                    <label><input type="radio" name="q5" value="c"> La leche</label>
+                </div>
+            </div>
+            
+            <button type="button" onclick="verificarRespuestas4()" class="verify-button">
+                ✅ Verificar respuestas
+            </button>
+        </form>
+    
+        <p id="resultado4"></p>
+    </div>
+    
+
+    <script>
+        function verificarRespuestas4() {
+            const respuestas = {
+                q1: "b",
+                q2: "b",
+                q3: "b",
+                q4: "b",
+                q5: "b"
+            };
+    
+            let correctas = 0;
+            let todasRespondidas = true;
+    
+            // Verificar si todas las preguntas fueron respondidas
+            for (let pregunta in respuestas) {
+                let seleccionada = document.querySelector(`#quizForm4 input[name="${pregunta}"]:checked`);
+                if (!seleccionada) {
+                    todasRespondidas = false;
+                    break;
+                }
+            }
+    
+            if (!todasRespondidas) {
+                const resultado = document.getElementById("resultado4");
+                resultado.textContent = "⚠️ Por favor responde todas las preguntas";
+                resultado.style.color = "#ff9800";
+                resultado.style.backgroundColor = "#fff3e0";
+                resultado.style.padding = "15px 20px";
+                resultado.style.border = "1px solid #ff9800";
+                return;
+            }
+    
+            // Contar respuestas correctas
+            for (let pregunta in respuestas) {
+                let seleccionada = document.querySelector(`#quizForm4 input[name="${pregunta}"]:checked`);
+                if (seleccionada && seleccionada.value === respuestas[pregunta]) {
+                    correctas++;
+                }
+            }
+    
+            // Mostrar resultado
+            const resultado = document.getElementById("resultado4");
+            
+            if (correctas === 5) {
+                resultado.innerHTML = `🎉 ¡Excelente! Todas las respuestas son correctas.`;
+                resultado.style.color = "white";
+                resultado.style.backgroundColor = "#4CAF50";
+                resultado.style.border = "none";
+            } else if (correctas >= 3) {
+                resultado.innerHTML = `😊 ¡Buen intento! Acertaste ${correctas} de 5.`;
+                resultado.style.color = "white";
+                resultado.style.backgroundColor = "#FF9800";
+                resultado.style.border = "none";
+            } else {
+                resultado.innerHTML = `😕 Solo acertaste ${correctas} de 5. ¡Sigue practicando!`;
+                resultado.style.color = "white";
+                resultado.style.backgroundColor = "#F44336";
+                resultado.style.border = "none";
+            }
+    
+            // Añadir animación
+            resultado.style.animation = "fadeIn 0.5s";
+            
+            // Resaltar respuestas correctas e incorrectas
+            for (let pregunta in respuestas) {
+                const opciones = document.querySelectorAll(`#quizForm4 input[name="${pregunta}"]`);
+                opciones.forEach(opcion => {
+                    const label = opcion.parentElement;
+                    if (opcion.value === respuestas[pregunta]) {
+                        label.style.backgroundColor = "#e8f5e9";
+                        label.style.borderColor = "#4CAF50";
+                    } else if (opcion.checked) {
+                        label.style.backgroundColor = "#ffebee";
+                        label.style.borderColor = "#F44336";
+                    }
+                });
+            }
+        }
+
+        // Añadir estilos dinámicos
+     document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            </style>
+        `);
+    </script>
+</header>
+</body>
+</html>

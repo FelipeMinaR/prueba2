@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego 2 - Aprende Jugando</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a9dd4;
+            --secondary-color: #4CAF50;
+            --accent-color: #FFD54F;
+            --danger-color: #ff5a5f;
+            --text-color: #333333;
+            --light-bg: #f9f9f9;
+            --header-font: 'Nunito', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', Arial, sans-serif;
+            text-align: center;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            padding: 30px 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 70%;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 30px 0 20px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .button-back {
+            display: inline-flex;
+            align-items: center;
+            margin: 20px;
+            padding: 12px 24px;
+            background-color: var(--danger-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .button-back:hover {
+            background-color: #e7484d;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-back:active {
+            transform: translateY(0);
+        }
+
+        .video-container {
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+            padding: 12px;
+        }
+
+        .video-container iframe {
+            border-radius: 8px;
+            width: 100%;
+            height: 450px;
+        }
+
+        .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Aumentado de 250px a 350px */
+    gap: 30px; /* Aumentado de 25px a 30px para mejor espaciado */
+    margin: 40px auto;
+    padding: 0 20px;
+    max-width: 1200px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    aspect-ratio: 4/3; /* Modificado de 3/2 para dar más altura */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    
+    transition: transform 0.5s ease;
+}
+
+/* Ajustes responsive para pantallas medianas */
+@media (max-width: 768px) {
+    .image-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Aumentado de 200px a 300px */
+    }
+}
+
+/* Ajustes responsive para pantallas pequeñas */
+@media (max-width: 480px) {
+    .image-gallery {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .gallery-item {
+        aspect-ratio: 16/9; /* Cambiado para mejor visualización en móviles */
+    }
+}
+
+        .instruction-banner {
+            background: linear-gradient(to right, #FFD54F, #FFC107);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .instruction-banner h3 {
+            color: #333;
+            font-size: 1.6rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .instruction-emoji {
+            font-size: 1.8rem;
+        }
+
+        .scratch-container {
+            margin: 40px auto;
+            max-width: 600px;
+        }
+
+        .play-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 36px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 22px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .play-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .play-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .play-button:hover::before {
+            left: 100%;
+        }
+
+        .play-button h1 {
+            margin: 0;
+            font-size: 28px;
+            color: white;
+        }
+
+        .play-button h1::after {
+            display: none;
+        }
+
+        .quiz-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px auto;
+            max-width: 800px;
+        }
+
+        .quiz-form {
+            max-width: 100%;
+            text-align: left;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .question p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .options label {
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .options label:hover {
+            background-color: #f0f0f0;
+            border-color: #ccc;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .verify-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+            font-weight: 600;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .verify-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .verify-button:active {
+            transform: translateY(0);
+        }
+
+        #resultado {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 30px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .video-container iframe {
+                height: 350px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-container iframe {
+                height: 240px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .button-back, .play-button {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+            
+            .play-button h1 {
+                font-size: 20px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .instruction-banner h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="button-back">⮐ Regresar al Menú</a>
+    <header>
+        <h1>Juego 2: ¡LOS SERES VIVOS E INERTES!</h1>
+    </header>
+    
+    <div class="video-container">
+        <!-- Video de YouTube relacionado -->
+        <iframe width="640" height="360"
+        src="https://www.youtube.com/embed/x-aT7d05BVk?si=EsdGzpjMJ9n3HNoA" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+    </div>
+
+    <div class="image-gallery">
+        <div class="gallery-item">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIQEhUSExMVFhUWFhcXGBcXFxgVFRgXFxUXFxgXFhUYHyggGB4lHBUYITEhJSktLi4uGB83ODMtNygtLisBCgoKDg0OGhAQGislHyYwKy0rLTUvLy0tLi0tLS0rNS0tKy0tLy0tLS8vLS8tLS0tLy0tLS0tLS0tLy0rLS0tLf/AABEIAK8BIAMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcBAgj/xABBEAACAgEDAgQEAwQIBAYDAAABAgMRAAQSIQUxBhNBUSIyYXGBkaEHFCNCUmJyscHR4fAVgpKiQ1Njg7LTJDM0/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAECAwQFBv/EACwRAAICAQMDAwIGAwAAAAAAAAABAhEDEiExBEFRBRNhIqEUcYGRsfAy4fH/2gAMAwEAAhEDEQA/AO44xjAGMw6rUrGpZv8AUn2GRPSfEIlQM67CzAAXuFNt2m/u4H5nsDQE5jGMAYxjAGMYwBjIuXrkYmMCrK7KVDlI2ZIy9FQ7DtwQfWgbNZHJ4rJV5f3WUQx+dul3Q/8AgbwxCb91ExkDj1Hpzl1CTJ0ssuMrkvi2MIzeTN5itCvksFWQ+e4SMglthUniw3oc2D4g2KDNBLG7PsSIbJXkIXcSnlsRQF3dVR+ltEidLJvGa0Wr3R+bscfCW2su1+L4Kn14yNHiWJliMaSSedCZ1VACwjGzlrIAJLgVfofbKqLfBFMm8ZB9M8TRTmEBJUE4Yxl1Chgqq/BDHupsf2T7Z8p4qidYzHHLI0u9kRFBdo0bb5vLBVQ8EEkXYy2iXgaWT2Mgx4pgKoVWVmkMgESoTKDE22QMv8u1uDZ9qvN/WdRWLTvqCrbUjaQrW16VSxFNVHjschxa5Qpm7jIzpHU5Jyd+neEUGBZ4m3X6UjEg/f3zW1XiRI5XhMM5KIZCwVSmwX8QO66JUjkemNDuhTJzGQ0PiSB4IdQu4pK6xigLV2sbXF8URRzQh8XkwjUNpJliZUZG3QsW8xkRBtElgkuO/He6yVjl4J0stGMgJvFMaxvJ5M58osJl2qHh2rvt1ZhwV5BWwc+ZfE7XGqaScvIHKqxij+FAhLWz1XxjHty8EaWWHGQr+IkUqjRTeaUEjRInmvGpJALlCV5INUTdGsmQcq01yGqPcYxkEDGMYAxjGAMYxgDPDnuMApXiMapSW8p2jDMGYMH+FuAdgJKqL5oCvXjnMHRYGlgQqLsotj5R/DZTX0Hnk/aI+tZfM+UjCigAB7AUOTZ/XIgtCpfP3Jk7PrGMZJAxjGAMHGMAqfU/Ds00petOhMisNQquuoCKwIShwTQ27i1V6emaUXhKQCePyNLci6kLqdzGb+N5m202cD4wDTdhl5xmiyySotrZSNT4LkCSKsizBmgepyxc+S4YxNNz/DIuht4J9bzY/wCASGJEGk0KqGdjD8TJuO0LIsgQENQII288c5b8Y92T5J1si/DvTX00CxO+9gXN80Azlgi7iTtUHaLPYZGdF8PS6X94ZWR3clIQ1hY4QzOqEgXwZH7ewyz4yut7/JXUynSeF9Q2hi03mxrLAUEUihuE2eU93/MUd+3HbN+Tos0Eqy6UxV5CQGOXcAFjLFGVl/tG1rnjkZYsZZ5JMnUynv4XlCKm3Sz/ADuzTIysJ5ZGeSRCtnaSwGzito5PpKP0Vz09tIZdzmBovMa+SUK7jZJrn3JycxkPJJjUyA8L9LbT792m08BO0XC5cvV8uWRe18d+5zFrukal9RNKGhCSQeRR3l9vxkNfYHc/14GWTGNbtsat7KjL4Rb+B5coTaYTOtWkjQqAJE/ovxRPqKvtmhovBsggOnMOmibZEv7xG7mV/LljdiQUBWxGT8xo1l9xlvemTrZWdF4aeKDVQebvE6uFkcEzW6Ff4z3/ABK4oiuOKzF17w9JKdMwjhn8mN42jmZkRi3l/GCFbt5Z4I/my154TlVkknf98EamVDqPhqaYbRFo0/hqiMA4k09KAVjZQN4BsqbWvbLXpoyqqpJYgAFj3JAqz9TnolB7c/bn9c9Rwe2Q5t7ENtn3jGMqQMYxgDGMYAxjGAMw6yfy0Z6vaLq6uvrmbMeoiDqVPYgg/YisAitL4m07A728plYKVk4Nm621Ybse19s3NL1aCXdslQ7fm+IWvbuD27j88511MwuQnxNIoWQvTD591C7280eAB2++a8iaeOOQRtc0ARpBuZjucFwSnI9D2o0Rdg8UuXgu1G9mdNj6lG+/Y17F3E0dtG6O48H5T+WZOnziSMMrBgb5BsGmI7/hldilSDSzNPIhkkjZioO47dlKoWrb5vRf5vXMf7LONABxQkkrbt28tZraqj5if5QfcXkp7iSSui34zHPMEFn3rNdIzKNzcKbpR7ehLA96o8dryxQ2g4JIsWO49R98+s1hokAA54vuzE/EbNm7Nn3yDj6ozyFISyxrI6MWiKG0YArEzmn+LcLAr2wCy4yD0XWj5ohkVyZDcbhCYyu0tTMthDSn5u/pk5gAnF5q9SkkWMmJA7+gJr7nmr+15UW69qD8zOvxFeI9o3KSGUEjkgq3Y+hzLJlUOzNceJz4aLvee3lF/wCMS/8AmP8A7/DMcHiHWvLshVpa+ZXjCgdj83w1wwPJ9RmcepTdUzSXTSSu0X7Inq3UilqpoKAXer232Cg8FvXm644NjJOEkqCwANCwDYBrkA+v3yC1nwvNd2CHodyvlqBX4ow/DLdRNxhaMsUU5bmKTWbFEnnS01USLBvkWjLSD/p+4yY6bqzJatQdK3V2IPZhfYGjx6EEc1Zp+k6vEzKCZdzEDbv3KAQAp7jj4qrvYN8gZZulD+K9dlRVJ+pJIH3A5/5hnPgnNT0yvc1yRjptEtg58TShFLNwACSfYDk9sjv+LwzIyxSrvZWCi9p3VxQaj3ztckuTms3NFrkmTfG24cj8R6ZsZQPBsjpqmjPwAKA6t8N3ewAHu1g/gD75f7zLp8ryQ1NUysXaAzWkO99noKLfW+y/b1ObN5p6JwTJR/nu/oQK/uzWXZF0bgGa+qUj417jv9R6j/LNkZ8SEAEntWS+Aj2NgQCOxF57zmr0x7jX6D8vb9KzbwnasPkjtR1ZEJXliDRr0PerP3zJ07qCzra8H1X1H1+oyhdJ1xfU6pT2aRpV+g37O/1UJ+Wb3Spm2kq2145JVBq6pzSsPVSu3j7H0xZBe+cc5BdO6uyhUko9l3An27kH/PJ7JAxjGAM8Oe4wCt9d6YSU2leXA+JN9jaxIIBFGh81+1g5A+Ipk067BptzOvezyR8Kqz97uu3Ye2Tfj3VtFAjp8ySK9bdwoBvmFHj68fcZH9Qjm1ei88gJ/DMgAPIoE+x7gegPBzOXejWL23OfaHp+1DfYhxuNfI8r8k/2BGfwGdQ/ZzLu0Y+ECpZhwKseaxUt/Woi/tlA08bPDNIGrydpJtdp37VA3FQAQVv5ffOkeBAv7jBsFCm/Pe24/neVxrcT4JrUxB0ZSAbBFEWO3qDnmkYFRQIrij3G01X6ZmyA8Qa86TaysAJGaw3IBSOSUlbIq9tfcg/Q7GRP5yL9qfXpf3oQRyMixR0djFSzSUWDUeRtC8ffOj9Q1DrGrLIp3FVDBbHxWN3cg1wfbg/hUOs+CE6hDDqIHVJTGpIPMbWN1EjkMCT8XJPN3wRKIZRPDniKfTamOTzXYMyJIHYsGjuiDZ/lBJHt9rvviTKTQPP+/wA+2cj6f+y7VNZmkjjoHaEJcs3pZoBRYHPJ+2dN6PoDGiFuH2JuA7bgoB7cd77e+G9yqbuqJI5Rer6HUyxF45TGraulALIw3avy94YXe4En7Nl21MZZWVW2kggNV7SRwa9a75HyaWm08KKRHH8RPpUa7Y0s9zuIb/2+e4zOUdRrGWncpo8J9U3cas17meb+4A5JeC9HPDM/nzeYz+cB3JBhlVCd55Ngr+GXSshhoT57dwN6zo4FjlRHNGfuBu59XvnbkLGo8FnkclTJrI3rMQ2+YOGTm/dSRuU/cD8CAckhml1jSmaCSNTRdGUE9uRXP+z9j2y0oqSaZROnZTNHxqNQ1DjeY7HAZG2sVHpZPNd8vOj0wjUKL9yT3JPcn6nOadN8LaozKDFs2tZclNo2sDYKoCbIFUQe3I7jqIzLFi0tsvOeoHKL13wtIrO8TKsfzA0zMnN0EUWwvtRFD7Xl7zBrdWkKNJIwVVFkn/D3J7AZObBDKlq7GTipclF0rmi6q7atYI0RWvzAzSahnoMQOENh29CvqazY8O9LnllDzCUKps7ywLN6D4uSPUntxXrnxovEumGtl1DK6iSOKMMQDt2FyxYAki9yDi/kGXqNwwBBsEAgjsQe2ZLDCclJPj7/AJiWJpqzxhYrK+ZTG3Bpl4PsfU2OfQE+poc8kZY8ier6AtUiD4l5r3rkV9bAv3AzsiovaRnkco/VHkxDrTi7QWO9Hj+f/wCtvyzBPrnl4PC+w7mieP8AtP3oe4yPieiFP/mKh+6xsGv8WPv6/wDNn6Xo2n2nslKdw45ACsAfe0U/e/x0fTxX+TdGC6uctopWTnSR8Jb0J4+309CPrQ+vObeok2qzewJ/IXn0igChwM594t6rMdQ0JJSNQQAONwKg2T6g8iu3pmM5VudS+lJM0vCbhw7+u1FIqiD8RP4E1X+mb0xEMyyfyTFY3Hs/aNx+qn6ZCdN1PkSMVAIkFEezLyD+pzB1LWtJHsHdWDCvezz+hP45nqjFUTaRa3lqYKfVCV+4Px/oUP55ZdB1NNlMaK0PuDdH/tYfhnNtb1Ev5ZBNrvs/2kWv1sZl6prtxBRvlRBYJ4ayTX2w8qrYOSOsYzQ6DK76eJpL3FQTfBzfzUkYxjANfU6JJPmF8V3IsexruOTifSK0Zi+Va20KFD2A9q4rNjGKJsiIPD0KqVAPJs1QviuwFdjkjpNMsSBEFKOwH1Nn9TmbPLyKQbbPc0Oq9H0+qCieJJAtkBhdX3r8sj/Ffi7TdNVTMSWe9ka1uaqs8kAAX3J/M8ZWen/tZ07tUkTIv9JXElD3ZQAfyvKvJFOmy0cU5K0i56joGlkhGnaCPyQdwjA2oDZNhVoDkk/jmfpnTIdMnlwxrGl3Sihfaz7ngcnM2nnWRVdGDKwDKwNgqRYIPqCMyZcoe4xjABzwjPcYAzys9xgDPKz3GAMYxgDPCM9xgHlYz3GAeAYIz3GAa82jRypZQSpsffj8+w/IZmVaz6xiyEktxmj1LpMOoA81A1djyGH2Yc5vYwSVs+CtL/6n/V/pmSPwdpB/Ix+7t/gRkl1TWCJe4DHtf6/pml0zqdvtZwb7c3zx/gcrpiRp+D6TwtpB/wCCPxZj/ec2dP0TTRm1hjBHY7QSPsTm+M9yaQpAYxjJJGMZjnYhSQCxAJAFWa9BfGAZMZx7V+KdUdTbecjX/DjFhaDHgoDteu1/TOo9D1zTwrI0bIWHZqv78e+UjNSdHRm6eWOKk2tzfOQ+gHlylSx7m7N7j3X9CcmDlX8caCVojLBZZaLoO7otk7f6w7/UCvbIyWla7FcEVOehur2sjus+HIdTrDPqI0ewsSh9rAJEWagjA/MWJNGxQ+uUv9ofhaJVM2kRIzAjPIEoArdncvfdRYg83tI4rmd0PU4dbEE1OyXjzNrgcKABuLMKuubu/W819Z4i0sqGDZURUIQRQKD+X7Vff3zg/ERmz1I9Dmi3FLdEl+yzqjr01WY7kM0ixs52qFHPzc8bgwFAcg5LdB8XGbWvpWZCCm6MqrLbIfjX4ib4II7fKczbPO0/kaZFEapSACkWl+Hmqv6AZROgeF9dJqoNSimNY5FYs4KkrdOtHnldy8A9/TPY6ZY54pNvjj5OVYsbhOU3UuyOzYzwZ7mR54xnzI1AmiaF0O5+2aMnUgCu4hPUhqvbRs2DxRoG/f65DkkCQxnxHKGFggj6e/qM+8kDGMYAxjPDgHuMxaiZY0Z2NKqlifYAWT+Qyj9Gafq7yyySyw6dGCpFG3ls1qHBkcc/Kymvr9OaSnTS7l4Q1Jt8IvuM55+8zdN1whE0kumIiLCVt7R+dI0SlWPYBlB+zevfOhYhPVYnDTT7M9xjPLy5Q9xml1bqcWmjMsrUo/Mn2UepyK0vi+CTTfvKB2AKq6DaZELEABhddz3BIPpkWTpdXWxYsZqdL166iNZVVlVuwcbTXoa9j6HNo5JBWvFDTK6tGtjaQTt3Ed+yllv0Hf1yLhl1LyIvlgfEvA+JR8FsRJYN3a1t+t5D+K/E8w1LKGIjhkravG4KQHs9yT8X6Zq9V8RyrOnkSbQguxRVmcAgEVXCj/vzklK5Wevj6DK4xXlX8fqdbGe5q9L1Pmwxyerxo3/UoP8Ajm1nWeS1TpjGMYIGRnXeovp0DrHvF0ea2+x7ZJ58uoIoiweCD2yJJtbEPgrnTutJqZoyV2MgkJs2ACF5DcV2ywQTo/KMrD+qQf7sg+pdDhd441XYG3klKB42kDn0+mS3TdAkCbEHHck9yfc5nDXdMrHV3NvNXqWqEMTyH+UfjfYD8yM2Tkd1+Evp5FAvgcfYg/4ZrV7F7S3Zz7Xz9MlJ3lA3r8yNf1qrOSHg7w50vVCWRY0mKvtJcs4A2gj4W49/TK3pvBc2oMx2lTHtoE/NuLWBz6AA/W8k/wBm+i1Gh1To0e2GYAMTa1Il7NoPPO5h7duffk6f0b8O5ZHmUku13z42O7L6tHJFYsSyq/PC/ZnUUjCgAAAAUABQA9gM+gMYzrOE9zzMeonWNSzGgO+VnqniEuNkYKc0Wv4uK4Ff33nPn6nHhX1PfwQ3RaXNA/bOfzzo5m3IXScDzY5GtfkRP4ZWig/hg+9+2ZNH1OSNg4YkeoJO0jNbxNoop5CUd1BpjtauWFsDXB/HkG88zN1zyQ1QemnuItN7ukSnhHWHzSDQD7uB2sGxQ9OLGXPKR4Z0RR4v5U7KL5O1SV4/C/fjLvnV6ZNzwve92TTRA+OOpyaXRSzRGnXywOAT8cqIaBBF03Fg5Wuk/tBvT6jzSrTQwtLGVG0TAAV8HdWDuike547HJD9rT7ensbAXzYt18cbxt9R/Ps/Cz6Zyrqhjn1EIAHlxxK24qHDCu0nlfDwti/TcbB4zpy5XCS8UzfHjU1+qL7+zDxVqZ5W0+pdncpv+IUUcHlfqrLTD2Ib6DOlXnK/2eRIdUZzsUIkm5zQJLOEiG/8AmG2N+b9LzqEU6uLVgw91II/TLYJuUE2VzRUZtIrfjXW7on0ou5EpiO4VuKF+pAP2GVjQdZminmRCF8zZIAACLVBGwG76Iv5ZKeJX/wDyJPoB+iL/AJnNCXQozpIR8Ud7aPuK5HrnzPXeo5I5pK2lulXwez0/T41ijau9zT63NIItRI5G6Xyixar/AIbgoFo/CL9B7nOjdG6oNQl1TCrF2OexB9QcpcsasNrAEexFj8sm/CrgSuti9gNetBquvxx6V6llnnjjlvd3+1mfW4Ie25JVX/C1ZGde61Fo498h5N7V9WPt9B9f9BkkMovjLpIGoSfdISSlgfF5aq6gmNQLuix9eSSM+pyT0Rs8jGk5bkL1ATao/vOqB22BHBe0fERW6/lHY0eTXPoo1Nfo3IOpgBRgVEsV2G2lZKNfN/Kff8Rkv0tTKJFk3uhSLiVT8xDGQAMBYBrGui8oose9Iwj8RKT8ReOrABPymQ/hnje7J5qtar5v6arg9DV9PG3gtvg/qsWp0sRjPKIqOvqrKoBB/KwfUZNnOd+B+jv+8GdJHQXJ5iMv/wC1DLMI7BraQApuvftZvohz2cU9cbODJFRlSOP+LemumudFBYyEyKBySshJJH2YMPsMrssLRfCylKYmmBBPcCr9Pr9Mt37W9Q0Gp08sZpzG/P8AZYV/8z98591jreont3ezVdhQF/KPYZX8JOTtcM9XF67ixxUZp2lvt/v8j9F9K03lQxR3eyNFv32qBf6Zt5g0Tho0YdiqkfYgEZnzU8du3YxjGCBmLVIWRgDRINH2zLjIatEp0U8h++9rHY2bF96yxdIRhH8TEkn1JP09ftmQ9Pi/o/qf882EQKKHbObDgcJW2dObOpxpI+shvEvW4tLHTsu+QFY0LBd57fMeFHI5PGTOQHiXwfpOoFTqFYsooFXZDV3XBzqOUxeDOpx6pZZE4IdVdbBZGEaMUarFguRwSOMkuraMMpbtQtiBzQ5sfUf79MxeG/Dem6fG0emQqrNva2ZyzUBZLE+gGS+V0RquxbXK9V7nIV/aTrTLFBAkOpd5mFKjq3khlVbO4BWKhm3EVyBXGddzU0HSoNPfkxRx7jZ2KFsn3rNzLFTU6npPOjaO6vsfYg2DXryMqg6FKrVItjnhATu+5rgfTLtnmcfVdFDqOW0/KCq7aOcS6cxM0bLRBJAP9Fr2kfh/dn1DpjMQLpV7sAOO9D63fP0y9a/pkU9eYgaux9R+P+GYYujRrwLr+jdL+S1nlZvSsqlWNqvLEIpSt8eCN6H00lzKzFgKo1VkV+godvW+Tzlkz5RABQFD2z6z2elwLBiUC05anZyz9uOseNdN3CW5v+sSi3u7KwVmq/Qt3F5ROnlm8mCAbpXWytfw0+H+I8hHIKqGFAkgCvpn6MdARRFg8EHkV9RkYvh+ATnUBacwiAVwqRgsaRRwptjz9BlsmFTas0x5nBOiieC+hS6TUxzahw3ntJYDHbE/O9SDxfmNtu/iteARz0yOJVugBZs17+/6Zgg6dGjbgOfTnsNiIQPpUa9/UZtVmqSSpGTd7nLP2hR6jTalpxZilAq+UDbQhQ/0T8II7XfrRzTXxTFsBKuGPoK/RiReddkiVgVYAgiiCLBHsQe+aej6NpoTujgiQ+6oqn8wM8rqvSceeepnoYuvcIKLV0c3h1Ot1P8A/PpGr0Zl2r9wTtB/M5avBvh6eCSTUah1MkihQi8hQDfJ/wAB9eTeWysEZv0/p+LDLWufJjm6yeSOmkkBlP8AG8PmOg8syKpidkG34lEjFhTkA8DsTlxyN6h0vzX379vwhe19iSPX6nOnPGTh9HO38nPjaUt+Dj/XZptMgEatpw4jDUURmMaEOQUY92cfU1n14c1EuqS5o21Aj3oD/DZhuMLc72F0ofnvyM6D17wMusCB52XYSRtQc2AObJ9s+egeBF0YYJOzbzZ3IL7AcUR7Zyezm/z0rV9jo9zHp02zzwFCYy6lNgPmMqGvhVp3ZRSkgcMOBlyyN6d0vynLl9xK7e1Dvfucks6+njKMEpc7/wAnPkacrRS/HJ6VIwTWSxrKo+G5CjKG55o0Aa7nKb0vpfSSxZ3Dx+eI0LSN5ZuMNtLCgTuDdzzwM69LoonYO0aMw4DFVLAewJFjPg9NhKGPyo9jCmTYu0j2K1RzR6+0iEsXeNv+/B96F4zGvlFTHtAXaQV2jgAV6cVmxmvodFHAgjiRY0F0qgKoskmgPqTmxlirrsMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgDGMYAxjGAMYxgH//Z" alt="Descripción 1">
+        </div>
+        <div class="gallery-item">
+            <img src="https://cdn.goconqr.com/uploads/media/image/32335405/desktop_623eeda6-dece-466d-b48a-9720598adb43.jpeg" alt="Descripción 2">
+        </div>
+        <div class="gallery-item">
+            <img src="https://i.ytimg.com/vi/h4m7i1DZ88c/maxresdefault.jpg" alt="Descripción 3">
+        </div>
+        <div class="gallery-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlw8ehyw0BqgLJvb1vGwS8bis_znd6g0AMoQ&s" alt="Descripción 3">
+        </div>
+        <div class="gallery-item">
+            <img src="https://i.ytimg.com/vi/JFBxkHrL_So/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB77qJ85zxo4WH6iZGDJlDUPOZbtg" alt="Descripción 3">
+        </div>
+        </div>
+
+        <div class="instruction-banner">
+            
+        </div>
+
+    <div class="scratch-container">
+        <a href="https://scratch.mit.edu/projects/1166315628/" target="_blank" class="button-back">
+            <h1 style="color: rgb(255, 255, 255);">▶️ Jugar con cámara en Scratch</h1>
+        </a>
+    </div>
+
+    <div class="quiz-container">
+        <!-- QUIZ SOBRE SERES VIVOS E INERTES -->
+        <h2>🌱 Quiz: ¿Qué tanto sabes sobre los seres vivos e inertes?</h2>
+        
+        <form id="quizForm2" class="quiz-form">
+            <div class="question">
+                <p>1. ¿Cuál de estos es un ser vivo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> Piedra</label>
+                    <label><input type="radio" name="q1" value="b"> Árbol</label>
+                    <label><input type="radio" name="q1" value="c"> Pelota</label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>2. ¿Qué hacen los seres vivos?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> Respiran, crecen y se reproducen</label>
+                    <label><input type="radio" name="q2" value="b"> Se quedan igual siempre</label>
+                    <label><input type="radio" name="q2" value="c"> Son muy pesados</label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>3. ¿Cuál de estos es un objeto inerte?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> Gato</label>
+                    <label><input type="radio" name="q3" value="b"> Mesa</label>
+                    <label><input type="radio" name="q3" value="c"> Planta</label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>4. ¿Por qué el ser humano es un ser vivo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> Porque puede moverse, crecer y pensar</label>
+                    <label><input type="radio" name="q4" value="b"> Porque es muy fuerte</label>
+                    <label><input type="radio" name="q4" value="c"> Porque tiene juguetes</label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>5. ¿Cuál de estos NO es un ser vivo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> Flor</label>
+                    <label><input type="radio" name="q5" value="b"> Niño</label>
+                    <label><input type="radio" name="q5" value="c"> Lápiz</label>
+                </div>
+            </div>
+            
+            <button type="button" onclick="verificarRespuestas2()" class="verify-button">
+                ✅ Verificar respuestas
+            </button>
+        </form>
+    
+        <p id="resultado2"></p>
+    </div>
+    
+    <style>
+        .quiz-container {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .quiz-container h2 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .quiz-form .question {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .quiz-form .question p {
+            font-weight: bold;
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .quiz-form .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .quiz-form .options label {
+            display: block;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-form .options label:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .verify-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .verify-button:hover {
+            background-color: #45a049;
+        }
+        
+        #resultado2 {
+            text-align: center;
+            font-size: 18px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    
+    <script>
+        function verificarRespuestas2() {
+            const respuestas = {
+                q1: "b",
+                q2: "a",
+                q3: "b",
+                q4: "a",
+                q5: "c"
+            };
+    
+            let correctas = 0;
+            let todasRespondidas = true;
+    
+            // Verificar si todas las preguntas fueron respondidas
+            for (let pregunta in respuestas) {
+                let seleccionada = document.querySelector(`#quizForm2 input[name="${pregunta}"]:checked`);
+                if (!seleccionada) {
+                    todasRespondidas = false;
+                    break;
+                }
+            }
+    
+            if (!todasRespondidas) {
+                const resultado = document.getElementById("resultado2");
+                resultado.textContent = "⚠️ Por favor responde todas las preguntas";
+                resultado.style.color = "#ff9800";
+                resultado.style.backgroundColor = "#fff3e0";
+                resultado.style.padding = "15px 20px";
+                resultado.style.border = "1px solid #ff9800";
+                return;
+            }
+    
+            // Contar respuestas correctas
+            for (let pregunta in respuestas) {
+                let seleccionada = document.querySelector(`#quizForm2 input[name="${pregunta}"]:checked`);
+                if (seleccionada && seleccionada.value === respuestas[pregunta]) {
+                    correctas++;
+                }
+            }
+    
+            // Mostrar resultado
+            const resultado = document.getElementById("resultado2");
+            
+            if (correctas === 5) {
+                resultado.innerHTML = `🎉 ¡Muy bien! Respondiste todo correctamente.`;
+                resultado.style.color = "white";
+                resultado.style.backgroundColor = "#4CAF50";
+                resultado.style.border = "none";
+            } else if (correctas >= 3) {
+                resultado.innerHTML = `😊 ¡Buen trabajo! Acertaste ${correctas} de 5.`;
+                resultado.style.color = "white";
+                resultado.style.backgroundColor = "#FF9800";
+                resultado.style.border = "none";
+            } else {
+                resultado.innerHTML = `😢 Solo acertaste ${correctas} de 5. ¡Sigue aprendiendo!`;
+                resultado.style.color = "white";
+                resultado.style.backgroundColor = "#F44336";
+                resultado.style.border = "none";
+            }
+    
+            // Añadir animación
+            resultado.style.animation = "fadeIn 0.5s";
+            
+            // Resaltar respuestas correctas e incorrectas
+            for (let pregunta in respuestas) {
+                const opciones = document.querySelectorAll(`#quizForm2 input[name="${pregunta}"]`);
+                opciones.forEach(opcion => {
+                    const label = opcion.parentElement;
+                    if (opcion.value === respuestas[pregunta]) {
+                        label.style.backgroundColor = "#e8f5e9";
+                        label.style.borderColor = "#4CAF50";
+                    } else if (opcion.checked) {
+                        label.style.backgroundColor = "#ffebee";
+                        label.style.borderColor = "#F44336";
+                    }
+                });
+            }
+        }
+    </script>
+</header>
+</body>
+</html>
